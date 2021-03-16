@@ -42,6 +42,20 @@ namespace PakketService.Controllers
             return package;
         }
 
+        // GET: api/Packages/Receiver/5
+        [HttpGet("Receiver/{id}")]
+        public async Task<ActionResult<IEnumerable<Package>>> GetPackagesByReceiverId(Guid id)
+        {
+            return await _context.Package.Where(b => b.ReceiverId == id.ToString()).ToListAsync();
+        }
+
+        // GET: api/Packages/Location/5
+        [HttpGet("Location/{id}")]
+        public async Task<ActionResult<IEnumerable<Package>>> GetPackagesBylocationId(Guid id)
+        {
+            return await _context.Package.Where(b => b.Tickets.Last().ToDoLocationId == id.ToString()).ToListAsync();
+        }
+
         // PUT: api/Packages/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
