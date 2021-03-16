@@ -19,9 +19,7 @@ Volg deze stappen om het project te runnen:
 2. Voer het volgende command uit om de container te starten:
     `docker-compose up`
 3. Controleer of de container actief is in Docker Desktop of door het volgende command uit te voeren:
-    `docker ps`
-
-Als het goed is staan er 2: pakketservice_pkg_1 en pakketservice_db_1
+    `docker ps`. Als het goed is staan er 2: pakketservice_pkg_1 en pakketservice_db_1
 
 4. Open het project in Visual Studio en open de Package Manager Console via Tools > NuGet Package Manager > Package Manager Console
 5. Voer het volgende command uit om de database in te stellen:
