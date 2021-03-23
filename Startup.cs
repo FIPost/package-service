@@ -6,6 +6,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using PakketService.Database.Contexts;
 using Microsoft.OpenApi.Models;
+using PakketService.Database.Converters;
+using PakketService.Database.Datamodels;
+using PakketService.Database.Datamodels.Dtos;
 
 namespace PakketService
 {
@@ -31,6 +34,9 @@ namespace PakketService
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PakketService", Version = "v1" });
             });
+
+            //Inject converter.
+            services.AddScoped<IDtoConverter<Package, PackageRequest, PackageResponse>, DtoConverter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
