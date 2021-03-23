@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PakketService.Database.Contexts;
+using PakketService.Database.Converters;
 using PakketService.Database.Datamodels;
+using PakketService.Database.Datamodels.Dtos;
 
 namespace PakketService.Controllers
 {
@@ -15,22 +16,26 @@ namespace PakketService.Controllers
     public class PackagesController : ControllerBase
     {
         private readonly PackageServiceContext _context;
+        private readonly DtoConverter converter;
 
         public PackagesController(PackageServiceContext context)
         {
             _context = context;
+            converter = new();
         }
 
         // GET: api/Packages
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Package>>> GetPackage()
+        public async Task<ActionResult<IEnumerable<PackageResponse>>> GetPackage()
         {
-            return await _context.Package.ToListAsync();
+            List<Package> packages = await _context.Package.ToListAsync();
+            
+            return converter.ModelToDto(packages);
         }
 
         // GET: api/Packages/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Package>> GetPackage(Guid id)
+        public async Task<ActionResult<PackageResponse>> GetPackage(Guid id)
         {
             var package = await _context.Package.FindAsync(id);
 
@@ -39,21 +44,25 @@ namespace PakketService.Controllers
                 return NotFound();
             }
 
-            return package;
+            return converter.ModelToDto(package);
         }
 
         // GET: api/Packages/Receiver/5
         [HttpGet("Receiver/{id}")]
-        public async Task<ActionResult<IEnumerable<Package>>> GetPackagesByReceiverId(Guid id)
+        public async Task<ActionResult<IEnumerable<PackageResponse>>> GetPackagesByReceiverId(Guid id)
         {
-            return await _context.Package.Where(b => b.ReceiverId == id.ToString()).ToListAsync();
+            List<Package> packages = await _context.Package.Where(b => b.ReceiverId == id.ToString()).ToListAsync();
+
+            return converter.ModelToDto(packages);
         }
 
         // GET: api/Packages/Location/5
         [HttpGet("Location/{id}")]
-        public async Task<ActionResult<IEnumerable<Package>>> GetPackagesBylocationId(Guid id)
+        public async Task<ActionResult<IEnumerable<PackageResponse>>> GetPackagesBylocationId(Guid id)
         {
-            return await _context.Package.Where(b => b.Tickets.Last().ToDoLocationId == id.ToString()).ToListAsync();
+            List<Package> packages = await _context.Package.Where(b => b.Tickets.Last().ToDoLocationId == id.ToString()).ToListAsync();
+
+            return converter.ModelToDto(packages);
         }
 
         // PUT: api/Packages/5
@@ -92,17 +101,18 @@ namespace PakketService.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Package>> PostPackage(Package package)
+        public async Task<ActionResult<PackageResponse>> PostPackage(PackageRequest dto)
         {
+            Package package = converter.DtoToModel(dto);
             _context.Package.Add(package);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPackage", new { id = package.Id }, package);
+            return CreatedAtAction("GetPackage", new { id = package.Id }, converter.ModelToDto(package));
         }
 
         // DELETE: api/Packages/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Package>> DeletePackage(Guid id)
+        public async Task<ActionResult<PackageResponse>> DeletePackage(Guid id)
         {
             var package = await _context.Package.FindAsync(id);
             if (package == null)
@@ -113,7 +123,7 @@ namespace PakketService.Controllers
             _context.Package.Remove(package);
             await _context.SaveChangesAsync();
 
-            return package;
+            return converter.ModelToDto(package);
         }
 
         private bool PackageExists(Guid id)
