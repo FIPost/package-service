@@ -15,7 +15,7 @@ namespace PakketService.Database.Datamodels
         public string CollectionPointId { get; set; }
         public string Sender { get; set; }
         public string Name { get; set; }
-        public Status status { get; set; }
+        public Status Status { get; set; }
         public bool RouteFinished { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
     }
