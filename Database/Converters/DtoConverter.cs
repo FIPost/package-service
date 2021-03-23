@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PakketService.Database.Converters
 {
-    public class DtoConverter
+    public class DtoConverter: IDtoConverter<Package, PackageRequest, PackageResponse>
     {
         public Package DtoToModel(PackageRequest dto)
         {

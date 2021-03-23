@@ -16,12 +16,12 @@ namespace PakketService.Controllers
     public class PackagesController : ControllerBase
     {
         private readonly PackageServiceContext _context;
-        private readonly DtoConverter converter;
+        private readonly IDtoConverter<Package, PackageRequest, PackageResponse> _converter;
 
-        public PackagesController(PackageServiceContext context)
+        public PackagesController(PackageServiceContext context, IDtoConverter<Package, PackageRequest, PackageResponse> converter)
         {
             _context = context;
-            converter = new();
+            _converter = converter;
         }
 
         // GET: api/Packages
@@ -29,8 +29,8 @@ namespace PakketService.Controllers
         public async Task<ActionResult<IEnumerable<PackageResponse>>> GetPackage()
         {
             List<Package> packages = await _context.Package.ToListAsync();
-            
-            return converter.ModelToDto(packages);
+
+            return _converter.ModelToDto(packages);
         }
 
         // GET: api/Packages/5
@@ -44,7 +44,7 @@ namespace PakketService.Controllers
                 return NotFound();
             }
 
-            return converter.ModelToDto(package);
+            return _converter.ModelToDto(package);
         }
 
         // GET: api/Packages/Receiver/5
@@ -53,7 +53,7 @@ namespace PakketService.Controllers
         {
             List<Package> packages = await _context.Package.Where(b => b.ReceiverId == id.ToString()).ToListAsync();
 
-            return converter.ModelToDto(packages);
+            return _converter.ModelToDto(packages);
         }
 
         // GET: api/Packages/Location/5
@@ -62,7 +62,7 @@ namespace PakketService.Controllers
         {
             List<Package> packages = await _context.Package.Where(b => b.Tickets.Last().ToDoLocationId == id.ToString()).ToListAsync();
 
-            return converter.ModelToDto(packages);
+            return _converter.ModelToDto(packages);
         }
 
         // PUT: api/Packages/5
@@ -103,11 +103,11 @@ namespace PakketService.Controllers
         [HttpPost]
         public async Task<ActionResult<PackageResponse>> PostPackage(PackageRequest dto)
         {
-            Package package = converter.DtoToModel(dto);
+            Package package = _converter.DtoToModel(dto);
             _context.Package.Add(package);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPackage", new { id = package.Id }, converter.ModelToDto(package));
+            return CreatedAtAction("GetPackage", new { id = package.Id }, _converter.ModelToDto(package));
         }
 
         // DELETE: api/Packages/5
@@ -123,7 +123,7 @@ namespace PakketService.Controllers
             _context.Package.Remove(package);
             await _context.SaveChangesAsync();
 
-            return converter.ModelToDto(package);
+            return _converter.ModelToDto(package);
         }
 
         private bool PackageExists(Guid id)
