@@ -26,7 +26,7 @@ jobs:
         with:
             files: 'appsettings.json'
         env:
-            AppSettings.ConnectionString: ${{ secrets.DATABASE_CONNECTION }}
+            ConnectionString: ${{ secrets.DATABASE_CONNECTION }}
           
       - uses: actions/checkout@v2
       - name: Setup dotnet
