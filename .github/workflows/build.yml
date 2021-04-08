@@ -6,6 +6,12 @@ jobs:
         dotnet: [ '2.1.x', '3.1.x', '5.0.x' ]
     name: Dotnet ${{ matrix.dotnet }} sample
     steps:
+      - name: Variable Substitution appsettings file for tests
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: 'SamLearnsAzure/SamLearnsAzure.Tests/appsettings.json'
+        env:
+          AppSettings.ConnectionStrings.PackageServiceContext: "${{ secrets.DATABASE_CONNECTION}}"
       - uses: actions/checkout@v2
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
