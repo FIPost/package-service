@@ -1,27 +1,52 @@
 # ipost-pakketservice
+.NET Core 3.1 API service for Fontys Internal Packages.
 
-## Wat is dit?
-Pakket service voor de IPost applicatie om pakketjes te registreren en op te halen.
+### Run with Docker
+```zsh
+docker-compose build
+docker-compose up
+```
 
-## Gerelateerde projecten
-- [ipost-userservice](https://git.fhict.nl/I418126/ipost-userservice) - Authenticatie voor Fontys medewerkers.
-- [ipost-personeelsservice](https://git.fhict.nl/I418126/ipost-personeelsservice) - Email-adressen en namen van Fontys accounts.
-- [ipost-locatieservice](https://git.fhict.nl/I418126/ipost-locatieservice) - Fontys afhaalpunten voor post.
-- [ipost-ui](https://git.fhict.nl/I418126/ipost-ui) - Front-end voor het logistieke proces.
-- [ipost-track-and-trace-ui)](https://git.fhict.nl/I418126/ipost-track-and-trace-ui) - Front-end voor Track & Trace ontvanger.
+#### Note
+Make sure that you are in the directory of `docker-compose.yml` when running these commands.
 
-## Getting started
-Het project werkt met docker-compose. Controleer vooraf of Docker correct geïnstalleerd is.
-Volg deze stappen om het project te runnen:
+### Inspect the database
+I use `Azure Data Studio` to do this, but you can also use any other database program compatible for sql server.
 
-(Stap 1 tot 5 hoeven alleen de eerste keer.)
-1. Navigeer naar het projectpad in je terminal (het pad waar docker-compose.yml in staat).
-2. Voer het volgende command uit om de container te starten:
-    `docker-compose up`
-3. Controleer of de container actief is in Docker Desktop of door het volgende command uit te voeren:
-    `docker ps`. Als het goed is staan er 2: _pakketservice_pkg_1_ en _pakketservice_db_1_
+In `docker-compose.yml` you can see that port 1433 is exposed on the MSSQL container. You can connect to this database with the following properties:
 
-4. Open het project in Visual Studio en open de Package Manager Console via Tools > NuGet Package Manager > Package Manager Console
-5. Voer het volgende command uit om de database in te stellen:
-    `update-database`
-6. Het project is nu klaar om te starten met IIExpress.
+| Property | Value       |
+|--------------|-------------|
+| Server | `localhost`          |
+| Authentication type | `sa`    |
+| Password | `Your_password123` |
+| Database | `<Default>`        |
+| Server group | `<Default>`    |
+
+
+### Insert Data
+POST: `http://localhost:5001/api/Packages`
+
+```json
+{
+    "ReceiverId": "1",
+    "TrackAndTraceId": "1",
+    "CollectionPointId": "1",
+    "Sender": "Cheese Factory",
+    "Name": "1KG of hot cheese"
+}
+```
+
+POST: `http://localhost:5001/api/Packages`
+```json
+{
+    "ReceiverId": "2",
+    "TrackAndTraceId": "3",
+    "CollectionPointId": "3",
+    "Sender": "Apple",
+    "Name": "10x Ipads"
+}
+```
+
+### Get Data
+GET: `http://localhost:5001/api/Packages`

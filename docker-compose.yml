@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+    pkg:
+        build:
+          context: .
+          dockerfile: Dockerfile.local
+        ports:
+            - "5001:5001"
+        depends_on:
+            - db
+    db:
+        image: "mcr.microsoft.com/mssql/server"
+        volumes:
+          - sqlvolume:/var/opt/mssql
+
+        environment:
+            SA_PASSWORD: "Your_password123"
+            ACCEPT_EULA: "Y"
+        ports:
+            - "1433:1433"
+
+volumes:
+  sqlvolume:
