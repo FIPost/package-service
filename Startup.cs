@@ -27,7 +27,7 @@ namespace PakketService
         public void ConfigureServices(IServiceCollection services)
         {
             // TO DO: connection hard-coded for testing (should be changed later)
-            var connection = Configuration.GetConnectionString("PackageServiceContext");
+            var connection = Configuration.GetValue<string>("ConnectionString");
             services.AddDbContext<PackageServiceContext>(
                 options => options.UseSqlServer(connection));
 
