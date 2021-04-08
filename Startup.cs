@@ -14,6 +14,8 @@ namespace PakketService
 {
     public class Startup
     {
+        readonly string MyPolicy = "*";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,6 +37,15 @@ namespace PakketService
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PakketService", Version = "v1" });
             });
 
+            services.AddCors(options => 
+            {
+                options.AddPolicy(name: MyPolicy,
+                builder =>
+                {
+                    builder.WithOrigins("*");
+                });
+            });
+
             //Inject converter.
             services.AddScoped<IDtoConverter<Package, PackageRequest, PackageResponse>, DtoConverter>();
         }
@@ -50,6 +61,8 @@ namespace PakketService
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PakketService v1"));
             }
+
+            app.UseCors();
 
             app.UseHttpsRedirection();
 
