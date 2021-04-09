@@ -1,4 +1,6 @@
-# ipost-pakketservice
+![Logo](https://github.com/FIPost/docs/blob/master/assets/logo-name.png)
+[![Publish Docker image](https://github.com/FIPost/pakketservice/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/FIPost/pakketservice/actions/workflows/docker-publish.yml)
+# pakketservice
 .NET Core 3.1 API service for Fontys Internal Packages.
 
 ### Run with Docker
