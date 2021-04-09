@@ -1,10 +1,9 @@
 version: "3.7"
 services:
     pkg:
-        build: 
-            context: .
-            dockerfile: Dockerfile
-        container_name: pakketservice
+        build:
+          context: .
+          dockerfile: Dockerfile.local
         ports:
             - "0.0.0.0:5001:5001"
         depends_on:
