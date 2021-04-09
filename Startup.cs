@@ -14,6 +14,8 @@ namespace PakketService
 {
     public class Startup
     {
+        readonly string MyPolicy = "*";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -37,6 +39,15 @@ namespace PakketService
 
             //Inject converter.
             services.AddScoped<IDtoConverter<Package, PackageRequest, PackageResponse>, DtoConverter>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyPolicy,
+                builder =>
+                {
+                    builder.WithOrigins("*");
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
