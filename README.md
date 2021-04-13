@@ -1,15 +1,19 @@
+![ipost-logo](https://github.com/FIPost/docs/blob/master/assets/logo-name.png?raw=true)
+
 ![Logo](https://github.com/FIPost/docs/blob/master/assets/logo-name.png)
 [![Publish Docker image](https://github.com/FIPost/pakketservice/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/FIPost/pakketservice/actions/workflows/docker-publish.yml)
-# pakketservice
+# Package Service
 .NET Core 3.1 API service for Fontys Internal Packages.
+<h3 align="center">
+  <a href="https://github.com/FIPost/docs">Documentation</a>
+</h3>
 
-### Run with Docker
+## Getting Started with Docker
 ```zsh
-docker-compose build
-docker-compose up
+docker-compose up --build
 ```
 
-#### Note
+<b>Note</b><br/>
 Make sure that you are in the directory of `docker-compose.yml` when running these commands.
 
 ### Inspect the database
