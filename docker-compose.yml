@@ -4,6 +4,7 @@ services:
         build:
           context: .
           dockerfile: Dockerfile.local
+        container_name: pakketservice
         ports:
             - "0.0.0.0:5001:5001"
         depends_on:
