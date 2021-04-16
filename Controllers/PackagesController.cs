@@ -104,7 +104,8 @@ namespace PakketService.Controllers
         public async Task<ActionResult<PackageResponse>> PostPackage(PackageRequest dto)
         {
             Package package = _converter.DtoToModel(dto);
-            _context.Package.Add(package);
+            package.TrackAndTraceId = package.Id.ToString();
+            _context.Package.Add(package)
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetPackage", new { id = package.Id }, _converter.ModelToDto(package));
