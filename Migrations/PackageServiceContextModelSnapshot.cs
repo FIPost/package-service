@@ -25,14 +25,14 @@ namespace PakketService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CollectionPointId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CollectionPointId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReceiverId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("ReceiverId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("RouteFinished")
                         .HasColumnType("bit");
@@ -40,11 +40,11 @@ namespace PakketService.Migrations
                     b.Property<string>("Sender")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TrackAndTraceId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("status")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("TrackAndTraceId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

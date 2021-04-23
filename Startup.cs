@@ -8,6 +8,9 @@ using PakketService.Database.Contexts;
 using PakketService.Database.Converters;
 using PakketService.Database.Datamodels;
 using PakketService.Database.Datamodels.Dtos;
+using LocatieService.Repositories;
+using PakketService.Services;
+using PakketService.Repositories;
 
 namespace PakketService
 {
@@ -47,6 +50,13 @@ namespace PakketService
 
             //Inject converter.
             services.AddScoped<IDtoConverter<Package, PackageRequest, PackageResponse>, DtoConverter>();
+
+            //Inject repositories.
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IPackageRepository, PackageRepository>();
+
+            // Inject services.
+            services.AddTransient<IPackageService, PackageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

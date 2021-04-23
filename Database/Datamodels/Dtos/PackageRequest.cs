@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace PakketService.Database.Datamodels.Dtos
 {
@@ -7,10 +8,10 @@ namespace PakketService.Database.Datamodels.Dtos
         [Required]
         public string Sender { get; set; }
         [Required]
-        public string ReceiverId { get; set; }
+        public Guid ReceiverId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
-        public string CollectionPointId { get; set; }
+        public Guid CollectionPointId { get; set; }
     }
 }
