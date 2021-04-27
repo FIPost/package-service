@@ -8,10 +8,10 @@ services:
         ports:
             - "0.0.0.0:5001:5001"
         depends_on:
-            - db
+            - pakket_db
         networks: 
             - ipost-network
-    db:
+    pakket_db:
         image: "mcr.microsoft.com/mssql/server"
         volumes:
           - sqlvolume:/var/opt/mssql
@@ -20,9 +20,10 @@ services:
             SA_PASSWORD: "Your_password123"
             ACCEPT_EULA: "Y"
         ports:
-            - "0.0.0.0:1433:1433"
+            - "1433"
+            - "1001:1433"
         networks: 
-            - ipost-network
+          - ipost-network
 
 volumes:
   sqlvolume:
