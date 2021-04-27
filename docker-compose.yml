@@ -14,7 +14,7 @@ services:
     pakket_db:
         image: "mcr.microsoft.com/mssql/server"
         volumes:
-          - sqlvolume:/var/opt/mssql
+          - pakket_volume:/var/opt/mssql
 
         environment:
             SA_PASSWORD: "Your_password123"
@@ -26,7 +26,7 @@ services:
           - ipost-network
 
 volumes:
-  sqlvolume:
+  pakket_volume: 
 
 networks:
     ipost-network:
