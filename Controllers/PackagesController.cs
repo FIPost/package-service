@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PakketService.Database.Contexts;
 using PakketService.Database.Converters;
 using PakketService.Database.Datamodels;
 using PakketService.Database.Datamodels.Dtos;
@@ -29,53 +26,54 @@ namespace PakketService.Controllers
         [HttpGet]
         public async Task<ActionResult<List<PackageResponse>>> GetPackage()
         {
-            return _converter.ModelToDto(await _service.GetAllPackagesAsync());
+            return _converter.ModelToDto(await _service.GetAllAsync());
         }
 
         // GET: api/Packages/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PackageResponse>> GetPackage(Guid id)
         {
-            return _converter.ModelToDto(await _service.GetPackageByIdAsync(id));
+            return _converter.ModelToDto(await _service.GetByIdAsync(id));
         }
 
         // GET: api/Packages/Receiver/5
-        [HttpGet("Receiver/{id}")]
+        [HttpGet("receiver/{id}")]
         public async Task<ActionResult<List<PackageResponse>>> GetPackagesByReceiverId(Guid id)
         {
-            return _converter.ModelToDto(await _service.GetPackageByReceiverIdAsync(id));
+            return _converter.ModelToDto(await _service.GetByReceiverIdAsync(id));
         }
 
         // GET: api/Packages/Location/5
-        [HttpGet("Location/{id}")]
+        [HttpGet("location/{id}")]
         public async Task<ActionResult<List<PackageResponse>>> GetPackagesBylocationId(Guid id)
         {
-            return _converter.ModelToDto(await _service.GetPackageByLocationIdAsync(id));
+            throw new NotImplementedException();
         }
 
         // PUT: api/Packages/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut]
-        public async Task<ActionResult<PackageResponse>> PutPackage(Package package)
+        [Route("{id}")]
+        public async Task<ActionResult<PackageResponse>> PutPackage(Guid id, PackageRequest request)
         {
-            return _converter.ModelToDto(await _service.UpdatePackageAsync(package));
+            return _converter.ModelToDto(await _service.UpdateAsync(id, _converter.DtoToModel(request)));
         }
 
         // POST: api/Packages
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<PackageResponse>> PostPackage(PackageRequest dto)
+        public async Task<ActionResult<PackageResponse>> PostPackage(PackageRequest request)
         {
-            return _converter.ModelToDto(await _service.AddPackageAsync(_converter.DtoToModel(dto)));
+            return _converter.ModelToDto(await _service.AddAsync(_converter.DtoToModel(request)));
         }
 
         // DELETE: api/Packages/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<PackageResponse>> DeletePackage(Guid id)
         {
-            return _converter.ModelToDto(await _service.DeletePackageByIdAsync(id));
+            return _converter.ModelToDto(await _service.DeleteByIdAsync(id));
         }
     }
 }

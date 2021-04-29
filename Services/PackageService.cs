@@ -1,56 +1,81 @@
-﻿using PakketService.Database.Datamodels;
-using PakketService.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using PakketService.Database.Contexts;
+using PakketService.Database.Datamodels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PakketService.Services
 {
     public class PackageService : IPackageService
     {
-        private readonly IPackageRepository _repository;
+        private readonly PackageServiceContext _context;
 
-        public PackageService(IPackageRepository repository)
+        public PackageService(PackageServiceContext context)
         {
-            _repository = repository;
+            _context = context;
         }
 
-        public async Task<Package> AddPackageAsync(Package package)
+        public async Task<Package> AddAsync(Package package)
         {
             // Make sure T&T equals package Id.
             package.TrackAndTraceId = package.Id;
-            return await _repository.AddAsync(package);
+
+            await _context.AddAsync(package);
+            await _context.SaveChangesAsync();
+
+            return package;
         }
 
-        public async Task<Package> DeletePackageByIdAsync(Guid id)
+        public async Task<List<Package>> GetAllAsync()
         {
-            Package package = await GetPackageByIdAsync(id);
-            return await _repository.DeleteAsync(package);
+            return await _context.Package.ToListAsync();
         }
 
-        public async Task<List<Package>> GetAllPackagesAsync()
+        public async Task<Package> GetByIdAsync(Guid id)
         {
-            return await _repository.GetAllAsync();
+            Package package = await _context.Package.FirstOrDefaultAsync(e => e.Id == id);
+
+            if (package == null)
+            {
+                throw new Exception($"Package with id {id} not found.");
+            }
+
+            return package;
         }
 
-        public async Task<Package> GetPackageByIdAsync(Guid id)
+        public async Task<List<Package>> GetByReceiverIdAsync(Guid id)
         {
-            return await _repository.GetByIdAsync(id);
+            List<Package> packages = await _context.Package.Where(b => b.ReceiverId == id).ToListAsync();
+
+            if (packages == null)
+            {
+                throw new Exception($"Package with receiver id {id} not found.");
+            }
+
+            return packages;
         }
 
-        public async Task<List<Package>> GetPackageByLocationIdAsync(Guid id)
+        public async Task<List<Package>> GetByLocationIdAsync(Guid id)
         {
-            return await _repository.GetByLocationIdAsync(id);
+            throw new NotImplementedException();
         }
 
-        public async Task<List<Package>> GetPackageByReceiverIdAsync(Guid id)
+        public async Task<Package> UpdateAsync(Guid id, Package package)
         {
-            return await _repository.GetByReceiverIdAsync(id);
+            package.Id = id;
+
+            _context.Update(package);
+            await _context.SaveChangesAsync();
+
+            return package;
         }
 
-        public async Task<Package> UpdatePackageAsync(Package package)
+        public async Task<Package> DeleteByIdAsync(Guid id)
         {
-            return await _repository.UpdateAsync(package);
+            throw new NotImplementedException();
         }
+
     }
 }

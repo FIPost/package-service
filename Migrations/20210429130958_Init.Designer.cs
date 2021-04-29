@@ -10,7 +10,7 @@ using PakketService.Database.Contexts;
 namespace PakketService.Migrations
 {
     [DbContext(typeof(PackageServiceContext))]
-    [Migration("20210423091711_Init")]
+    [Migration("20210429130958_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
