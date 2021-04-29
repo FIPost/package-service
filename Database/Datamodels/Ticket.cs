@@ -13,7 +13,7 @@ namespace PakketService.Database.Datamodels
         public Guid Id { get; set; }
         public string ToDoLocationId { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime CreatedAt { get; set; }
+        public Double CreatedAt { get; set; }
         public string CreatedByPCN { get; set; }
         public double FinishedAt { get; set; }
         public string FinishedByPCN { get; set; }
