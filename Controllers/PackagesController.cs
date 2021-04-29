@@ -22,16 +22,25 @@ namespace PakketService.Controllers
             _converter = converter;
         }
 
+        // POST: api/Packages
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPost]
+        public async Task<ActionResult<PackageResponse>> AddPackage(PackageRequest request)
+        {
+            return _converter.ModelToDto(await _service.AddAsync(_converter.DtoToModel(request)));
+        }
+
         // GET: api/Packages
         [HttpGet]
-        public async Task<ActionResult<List<PackageResponse>>> GetPackage()
+        public async Task<ActionResult<List<PackageResponse>>> GetAllPackages()
         {
             return _converter.ModelToDto(await _service.GetAllAsync());
         }
 
         // GET: api/Packages/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PackageResponse>> GetPackage(Guid id)
+        public async Task<ActionResult<PackageResponse>> GetPackageById(Guid id)
         {
             return _converter.ModelToDto(await _service.GetByIdAsync(id));
         }
@@ -55,23 +64,14 @@ namespace PakketService.Controllers
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut]
         [Route("{id}")]
-        public async Task<ActionResult<PackageResponse>> PutPackage(Guid id, PackageRequest request)
+        public async Task<ActionResult<PackageResponse>> UpdatePackage(Guid id, PackageRequest request)
         {
             return _converter.ModelToDto(await _service.UpdateAsync(id, _converter.DtoToModel(request)));
         }
 
-        // POST: api/Packages
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<PackageResponse>> PostPackage(PackageRequest request)
-        {
-            return _converter.ModelToDto(await _service.AddAsync(_converter.DtoToModel(request)));
-        }
-
         // DELETE: api/Packages/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<PackageResponse>> DeletePackage(Guid id)
+        public async Task<ActionResult<PackageResponse>> DeletePackageById(Guid id)
         {
             return _converter.ModelToDto(await _service.DeleteByIdAsync(id));
         }
