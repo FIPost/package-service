@@ -8,7 +8,7 @@ namespace PakketService.Database.Datamodels.Dtos
         [Required]
         public string Sender { get; set; }
         [Required]
-        public Guid ReceiverId { get; set; }
+        public string ReceiverId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

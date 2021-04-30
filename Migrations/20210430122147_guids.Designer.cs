@@ -10,8 +10,8 @@ using PakketService.Database.Contexts;
 namespace PakketService.Migrations
 {
     [DbContext(typeof(PackageServiceContext))]
-    [Migration("20210429130958_Init")]
-    partial class Init
+    [Migration("20210430122147_guids")]
+    partial class guids
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,8 +33,8 @@ namespace PakketService.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ReceiverId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ReceiverId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("RouteFinished")
                         .HasColumnType("bit");

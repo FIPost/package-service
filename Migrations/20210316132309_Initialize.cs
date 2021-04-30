@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PakketService.Migrations
 {
-    public partial class Init : Migration
+    public partial class Initialize : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,12 +12,12 @@ namespace PakketService.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReceiverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TrackAndTraceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CollectionPointId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReceiverId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TrackAndTraceId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CollectionPointId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Sender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: false),
+                    status = table.Column<int>(type: "int", nullable: false),
                     RouteFinished = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
