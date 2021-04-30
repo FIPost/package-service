@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PakketService.csproj" />
+    <ProjectReference Include="..\pakketservice\PakketService.csproj" />
   </ItemGroup>
 
 </Project>

@@ -45,6 +45,23 @@ namespace PakketService.Services
             return package;
         }
 
+        public async Task<List<Package>> GetByReceiverIdAsync(Guid id)
+        {
+            List<Package> packages = await _context.Package.Where(b => b.ReceiverId == id).ToListAsync();
+
+            if (packages == null)
+            {
+                throw new Exception($"Package with receiver id {id} not found.");
+            }
+
+            return packages;
+        }
+
+        public async Task<List<Package>> GetByLocationIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Package> UpdateAsync(Guid id, Package package)
         {
             package.Id = id;

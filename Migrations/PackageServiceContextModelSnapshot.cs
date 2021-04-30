@@ -31,8 +31,8 @@ namespace PakketService.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReceiverId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("ReceiverId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("RouteFinished")
                         .HasColumnType("bit");
