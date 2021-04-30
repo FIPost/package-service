@@ -22,89 +22,89 @@ namespace PakketService.Migrations
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("PakketService.Database.Datamodels.Package", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CollectionPointId")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("CollectionPointId")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReceiverId")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ReceiverId")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("RouteFinished")
-                        .HasColumnType("bit");
+                b.Property<bool>("RouteFinished")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("Sender")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Sender")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TrackAndTraceId")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("TrackAndTraceId")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("status")
-                        .HasColumnType("int");
+                b.Property<int>("status")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Package");
-                });
-
-            modelBuilder.Entity("PakketService.Database.Datamodels.Ticket", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedByPCN")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("FinishedAt")
-                        .HasColumnType("float");
-
-                    b.Property<string>("FinishedByPCN")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsFinished")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("NextTicketId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("PackageId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("TicketAction")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ToDoLocationId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PackageId");
-
-                    b.ToTable("Ticket");
-                });
+                b.ToTable("Package");
+            });
 
             modelBuilder.Entity("PakketService.Database.Datamodels.Ticket", b =>
-                {
-                    b.HasOne("PakketService.Database.Datamodels.Package", null)
-                        .WithMany("Tickets")
-                        .HasForeignKey("PackageId");
-                });
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("uniqueidentifier");
+
+                b.Property<DateTime>("CreatedAt")
+                    .ValueGeneratedOnAddOrUpdate()
+                    .HasColumnType("datetime2");
+
+                b.Property<string>("CreatedByPCN")
+                    .HasColumnType("nvarchar(max)");
+
+                b.Property<double>("FinishedAt")
+                    .HasColumnType("float");
+
+                b.Property<string>("FinishedByPCN")
+                    .HasColumnType("nvarchar(max)");
+
+                b.Property<bool>("IsFinished")
+                    .HasColumnType("bit");
+
+                b.Property<string>("NextTicketId")
+                    .HasColumnType("nvarchar(max)");
+
+                b.Property<Guid?>("PackageId")
+                    .HasColumnType("uniqueidentifier");
+
+                b.Property<int>("TicketAction")
+                    .HasColumnType("int");
+
+                b.Property<string>("ToDoLocationId")
+                    .HasColumnType("nvarchar(max)");
+
+                b.HasKey("Id");
+
+                b.HasIndex("PackageId");
+
+                b.ToTable("Ticket");
+            });
+
+            modelBuilder.Entity("PakketService.Database.Datamodels.Ticket", b =>
+            {
+                b.HasOne("PakketService.Database.Datamodels.Package", null)
+                    .WithMany("Tickets")
+                    .HasForeignKey("PackageId");
+            });
 
             modelBuilder.Entity("PakketService.Database.Datamodels.Package", b =>
-                {
-                    b.Navigation("Tickets");
-                });
+            {
+                b.Navigation("Tickets");
+            });
 #pragma warning restore 612, 618
         }
     }
