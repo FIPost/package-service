@@ -12,7 +12,7 @@ namespace PakketService.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReceiverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReceiverId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TrackAndTraceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CollectionPointId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Sender = table.Column<string>(type: "nvarchar(max)", nullable: true),

@@ -45,20 +45,6 @@ namespace PakketService.Controllers
             return _converter.ModelToDto(await _service.GetByIdAsync(id));
         }
 
-        // GET: api/Packages/Receiver/5
-        [HttpGet("receiver/{id}")]
-        public async Task<ActionResult<List<PackageResponse>>> GetPackagesByReceiverId(Guid id)
-        {
-            return _converter.ModelToDto(await _service.GetByReceiverIdAsync(id));
-        }
-
-        // GET: api/Packages/Location/5
-        [HttpGet("location/{id}")]
-        public async Task<ActionResult<List<PackageResponse>>> GetPackagesBylocationId(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
         // PUT: api/Packages/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

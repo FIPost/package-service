@@ -6,7 +6,7 @@ namespace PakketService.Database.Datamodels.Dtos
     public class PackageResponse
     {
         public Guid Id { get; set; }
-        public Guid ReceiverId { get; set; }
+        public string ReceiverId { get; set; }
         public Guid TrackAndTraceId { get; set; }
         public Guid CollectionPointId { get; set; }
         public string Sender { get; set; }

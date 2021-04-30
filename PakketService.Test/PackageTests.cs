@@ -30,14 +30,14 @@ namespace PakketService.Test
             package = new Package
             {
                 Sender = "Coolblue",
-                ReceiverId = new Guid(),
+                ReceiverId = "1",
                 Name = "Test",
                 CollectionPointId = new Guid()
             };
             request = new PackageRequest
             {
                 Sender = "Coolblue",
-                ReceiverId = new Guid(),
+                ReceiverId = "1",
                 Name = "Test",
                 CollectionPointId = new Guid()
             };
