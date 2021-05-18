@@ -61,5 +61,12 @@ namespace PakketService.Controllers
         {
             return _converter.ModelToDto(await _service.DeleteByIdAsync(id));
         }
+
+        [HttpGet]
+        [Route("health")]
+        public ActionResult Health()
+        {
+            return Ok();
+        }
     }
 }
