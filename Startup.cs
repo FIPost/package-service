@@ -9,6 +9,7 @@ using PakketService.Database.Converters;
 using PakketService.Database.Datamodels;
 using PakketService.Database.Datamodels.Dtos;
 using PakketService.Services;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace PakketService
 {
@@ -26,7 +27,9 @@ namespace PakketService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // TO DO: connection hard-coded for testing (should be changed later)
+            services.Configure<KestrelServerOptions>(
+            Configuration.GetSection("Kestrel"));
+
             var connection = Configuration.GetValue<string>("ConnectionString");
             services.AddDbContext<PackageServiceContext>(
                 options => options.UseSqlServer(connection));
