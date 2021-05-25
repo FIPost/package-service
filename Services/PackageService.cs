@@ -19,8 +19,6 @@ namespace PakketService.Services
 
         public async Task<Package> AddAsync(Package package)
         {
-            // Make sure T&T equals package Id.
-            package.TrackAndTraceId = package.Id;
 
             await _context.AddAsync(package);
             await _context.SaveChangesAsync();

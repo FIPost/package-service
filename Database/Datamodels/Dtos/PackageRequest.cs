@@ -13,5 +13,7 @@ namespace PakketService.Database.Datamodels.Dtos
         public string Name { get; set; }
         [Required]
         public Guid CollectionPointId { get; set; }
+        [Required]
+        public string CreatedBy { get; set; }
     }
 }
