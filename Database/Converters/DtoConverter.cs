@@ -13,7 +13,7 @@ namespace PakketService.Database.Converters
                 Sender = dto.Sender,
                 ReceiverId = dto.ReceiverId,
                 Name = dto.Name,
-                CollectionPointId = dto.CollectionPointId,
+                CollectionPointId = dto.CollectionPointId
             };
         }
 

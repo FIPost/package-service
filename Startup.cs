@@ -51,9 +51,11 @@ namespace PakketService
 
             //Inject converter.
             services.AddScoped<IDtoConverter<Package, PackageRequest, PackageResponse>, DtoConverter>();
+            services.AddScoped<IDtoConverter<Ticket, TicketRequest, TicketResponse>, TicketDtoConverter>();
 
             // Inject services.
             services.AddTransient<IPackageService, PackageService>();
+            services.AddTransient<ITicketService, TicketService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

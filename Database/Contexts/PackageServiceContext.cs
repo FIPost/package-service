@@ -12,5 +12,7 @@ namespace PakketService.Database.Contexts
 
         public DbSet<Package> Package { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
+
+
     }
 }

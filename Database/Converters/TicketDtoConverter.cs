@@ -1,0 +1,40 @@
+﻿using PakketService.Database.Datamodels;
+using PakketService.Database.Datamodels.Dtos;
+using System;
+using System.Collections.Generic;
+
+
+namespace PakketService.Database.Converters
+{
+    public class TicketDtoConverter : IDtoConverter<Ticket, TicketRequest, TicketResponse>
+    {
+        public Ticket DtoToModel(TicketRequest request)
+        {
+            return new Ticket
+            {
+                LocationId = request.LocationId,
+                CompletedByPersonId = request.CompletedByPersonId,
+                ReceivedByPersonId = request.ReceivedByPersonId,
+                PackageId = request.PackageId
+            };
+        }
+
+        public TicketResponse ModelToDto(Ticket model)
+        {
+            return new TicketResponse
+            {
+                LocationId = model.LocationId,
+                CompletedByPersonId = model.CompletedByPersonId,
+                FinishedAt = model.FinishedAt,
+                Id = model.Id,
+                PackageId = model.PackageId,
+                ReceivedByPersonId = model.ReceivedByPersonId
+            };
+        }
+
+        public List<TicketResponse> ModelToDto(List<Ticket> models)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
