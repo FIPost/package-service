@@ -2,7 +2,9 @@
 using PakketService.Database.Converters;
 using PakketService.Database.Datamodels;
 using PakketService.Database.Datamodels.Dtos;
+using PakketService.helpers;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PakketService.Services
@@ -20,6 +22,11 @@ namespace PakketService.Services
 
         public async Task<TicketResponse> AddAsync(TicketRequest request)
         {
+            if (!_context.Package.Any(p => p.Id == request.PackageId))
+            {
+                throw new NotFoundException($"Package with id {request.PackageId} not found.");
+            }
+
             Ticket ticket = _converter.DtoToModel(request);
             ticket.FinishedAt = DateTimeOffset.Now.ToUnixTimeSeconds();
 
