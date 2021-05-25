@@ -6,6 +6,7 @@ using PakketService.Database.Datamodels.Dtos;
 using PakketService.helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PakketService.Services
@@ -14,11 +15,14 @@ namespace PakketService.Services
     {
         private readonly PackageServiceContext _context;
         private readonly IDtoConverter<Package, PackageRequest, PackageResponse> _converter;
+        private readonly IDtoConverter<Ticket, TicketRequest, TicketResponse> _ticketConverter;
 
-        public PackageService(PackageServiceContext context, IDtoConverter<Package, PackageRequest, PackageResponse> converter)
+        public PackageService(PackageServiceContext context, IDtoConverter<Package, PackageRequest, PackageResponse> converter, 
+            IDtoConverter<Ticket, TicketRequest, TicketResponse> ticketConverter)
         {
             _context = context;
             _converter = converter;
+            _ticketConverter = ticketConverter;
         }
 
         public async Task<PackageResponse> AddAsync(PackageRequest request)
@@ -30,7 +34,8 @@ namespace PakketService.Services
                     new Ticket
                     {
                         CompletedByPersonId = request.CreatedByPersonId,
-                        LocationId = request.CreatedAtLocationId
+                        LocationId = request.CreatedAtLocationId,
+                        FinishedAt = DateTimeOffset.Now.ToUnixTimeSeconds()
                     }
                 };
 
@@ -42,19 +47,28 @@ namespace PakketService.Services
 
         public async Task<List<PackageResponse>> GetAllAsync()
         {
-            return _converter.ModelToDto(await _context.Package.ToListAsync());
+            List<PackageResponse> packages = _converter.ModelToDto(await _context.Package.ToListAsync());
+
+            foreach (PackageResponse package in packages)
+            {
+                package.Tickets = _ticketConverter.ModelToDto(await _context.Ticket.Where(t => t.PackageId == package.Id).ToListAsync());
+            }
+
+            return packages;
         }
 
         public async Task<PackageResponse> GetByIdAsync(Guid id)
         {
-            Package package = await _context.Package.FirstOrDefaultAsync(e => e.Id == id);
+            PackageResponse package = _converter.ModelToDto(await _context.Package.FirstOrDefaultAsync(e => e.Id == id));
 
             if (package == null)
             {
                 throw new NotFoundException($"Package with id {id} not found.");
             }
 
-            return _converter.ModelToDto(package);
+            package.Tickets = _ticketConverter.ModelToDto(await _context.Ticket.Where(t => t.PackageId == id).ToListAsync());
+
+            return package;
         }
 
         public async Task<PackageResponse> UpdateAsync(Guid id, PackageRequest request)

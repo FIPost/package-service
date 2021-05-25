@@ -12,10 +12,10 @@ namespace PakketService.Database.Datamodels
         [Key]
         public Guid Id { get; set; }
         public Guid LocationId { get; set; }
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public double FinishedAt { get; set; }
         public string CompletedByPersonId { get; set; }
         public string ReceivedByPersonId { get; set; }
+
         public Guid PackageId { get; set; }
     }
 }

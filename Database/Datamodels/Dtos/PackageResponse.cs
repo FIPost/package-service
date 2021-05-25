@@ -12,6 +12,6 @@ namespace PakketService.Database.Datamodels.Dtos
         public string Name { get; set; }
         public Status Status { get; set; }
         public bool RouteFinished { get; set; }
-        public virtual ICollection<Ticket> Tickets { get; set; }
+        public virtual ICollection<TicketResponse> Tickets { get; set; }
     }
 }

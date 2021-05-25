@@ -34,7 +34,14 @@ namespace PakketService.Database.Converters
 
         public List<TicketResponse> ModelToDto(List<Ticket> models)
         {
-            throw new NotImplementedException();
+            List<TicketResponse> responseDtos = new();
+
+            foreach (Ticket ticket in models)
+            {
+                responseDtos.Add(ModelToDto(ticket));
+            }
+
+            return responseDtos;
         }
     }
 }

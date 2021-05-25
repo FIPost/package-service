@@ -28,7 +28,6 @@ namespace PakketService.Database.Converters
                 Name = package.Name,
                 Status = package.Status,
                 RouteFinished = package.RouteFinished,
-                Tickets = package.Tickets
             };
         }
 

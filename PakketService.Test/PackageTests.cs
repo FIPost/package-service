@@ -47,8 +47,8 @@ namespace PakketService.Test
         public async Task AddPackageTest()
         {
             // Arrange
-            serviceMock.Setup(x => x.AddAsync(package)).Returns(Task.FromResult(package));
-            var controller = new PackagesController(serviceMock.Object, converterMock.Object);
+            serviceMock.Setup(x => x.AddAsync(request)).Returns(Task.FromResult(converterMock.Object.ModelToDto(package)));
+            var controller = new PackagesController(serviceMock.Object);
 
             // Act
             var result = await controller.AddPackage(request);
@@ -62,8 +62,8 @@ namespace PakketService.Test
         public async Task GetPackageByIdTest()
         {
             // Arrange
-            serviceMock.Setup(x => x.GetByIdAsync(new Guid())).Returns(Task.FromResult(package));
-            var controller = new PackagesController(serviceMock.Object, converterMock.Object);
+            serviceMock.Setup(x => x.GetByIdAsync(new Guid())).Returns(Task.FromResult(converterMock.Object.ModelToDto(package)));
+            var controller = new PackagesController(serviceMock.Object);
 
             // Act
             var result = await controller.GetPackageById(new Guid());

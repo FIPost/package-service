@@ -2,6 +2,7 @@
 using PakketService.Database.Converters;
 using PakketService.Database.Datamodels;
 using PakketService.Database.Datamodels.Dtos;
+using System;
 using System.Threading.Tasks;
 
 namespace PakketService.Services
@@ -20,6 +21,7 @@ namespace PakketService.Services
         public async Task<TicketResponse> AddAsync(TicketRequest request)
         {
             Ticket ticket = _converter.DtoToModel(request);
+            ticket.FinishedAt = DateTimeOffset.Now.ToUnixTimeSeconds();
 
             await _context.AddAsync(ticket);
             await _context.SaveChangesAsync();
