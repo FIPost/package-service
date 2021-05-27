@@ -27,7 +27,6 @@ namespace PakketService.Database.Converters
                 CompletedByPersonId = model.CompletedByPersonId,
                 FinishedAt = model.FinishedAt,
                 Id = model.Id,
-                PackageId = model.PackageId,
                 ReceivedByPersonId = model.ReceivedByPersonId
             };
         }

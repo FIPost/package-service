@@ -12,6 +12,5 @@ namespace PakketService.Database.Datamodels.Dtos
         public double FinishedAt { get; set; }
         public string CompletedByPersonId { get; set; }
         public string ReceivedByPersonId { get; set; }
-        public Guid PackageId { get; set; }
     }
 }

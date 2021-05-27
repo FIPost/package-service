@@ -1,4 +1,5 @@
-﻿using PakketService.Database.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using PakketService.Database.Contexts;
 using PakketService.Database.Converters;
 using PakketService.Database.Datamodels;
 using PakketService.Database.Datamodels.Dtos;
@@ -22,17 +23,23 @@ namespace PakketService.Services
 
         public async Task<TicketResponse> AddAsync(TicketRequest request)
         {
-            if (!_context.Package.Any(p => p.Id == request.PackageId))
+            Package package = await _context.Package.FirstOrDefaultAsync(p => p.Id == request.PackageId);
+            if (package == null)
             {
                 throw new NotFoundException($"Package with id {request.PackageId} not found.");
             }
 
             Ticket ticket = _converter.DtoToModel(request);
             ticket.FinishedAt = DateTimeOffset.Now.ToUnixTimeSeconds();
-
             await _context.AddAsync(ticket);
-            await _context.SaveChangesAsync();
 
+            if (ticket.LocationId == package.CollectionPointId)
+            {
+                package.RouteFinished = true;
+                _context.Update(package);
+            }
+
+            await _context.SaveChangesAsync();
             return _converter.ModelToDto(ticket);
         }
     }
