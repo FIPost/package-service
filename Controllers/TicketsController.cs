@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PakketService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/tickets")]
     [ApiController]
     public class TicketsController : ControllerBase
     {
