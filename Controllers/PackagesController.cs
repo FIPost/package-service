@@ -9,7 +9,7 @@ using PakketService.Services;
 
 namespace PakketService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/packages")]
     [ApiController]
     public class PackagesController : ControllerBase
     {
