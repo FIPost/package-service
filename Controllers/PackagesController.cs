@@ -11,7 +11,7 @@ namespace PakketService.Controllers
 {
     [Route("api/packages")]
     [ApiController]
-    public class PackagesController : ControllerBas
+    public class PackagesController : ControllerBase
     {
         private readonly IPackageService _service;
         private readonly IDtoConverter<Package, PackageRequest, PackageResponse> _converter;
