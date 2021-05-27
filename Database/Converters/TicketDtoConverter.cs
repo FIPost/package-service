@@ -2,7 +2,7 @@
 using PakketService.Database.Datamodels.Dtos;
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace PakketService.Database.Converters
 {
@@ -40,6 +40,7 @@ namespace PakketService.Database.Converters
                 responseDtos.Add(ModelToDto(ticket));
             }
 
+            responseDtos.Sort((x, y) => y.FinishedAt.CompareTo(x.FinishedAt));
             return responseDtos;
         }
     }
