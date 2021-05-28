@@ -27,13 +27,13 @@ namespace PakketService.Controllers
         [HttpPost]
         public async Task<ActionResult<PackageResponse>> AddPackage(PackageRequest request)
         {
-            return await _service.AddAsync(request);
+            return Ok(await _service.AddAsync(request));
         }
 
         [HttpGet]
         public async Task<ActionResult<List<PackageResponse>>> GetAllPackages()
         {
-            return await _service.GetAllAsync();
+            return Ok(await _service.GetAllAsync());
         }
 
         [HttpGet("{id}")]
