@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-
+    <VSTestLogger>trx</VSTestLogger>
+    <VSTestResultsDirectory>..\TestReports</VSTestResultsDirectory>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
