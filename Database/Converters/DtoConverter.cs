@@ -35,7 +35,7 @@ namespace PakketService.Database.Converters
 
         public List<PackageResponse> ModelToDto(List<Package> packages)
         {
-            List<PackageResponse> responseDtos = new();
+            List<PackageResponse> responseDtos = new List<PackageResponse>();
 
             foreach (Package pkg in packages)
             {
