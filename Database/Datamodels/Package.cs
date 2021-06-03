@@ -11,7 +11,6 @@ namespace PakketService.Database.Datamodels
         [Key]
         public Guid Id { get; set; }
         public string ReceiverId { get; set; }
-        public Guid TrackAndTraceId { get; set; }
         public Guid CollectionPointId { get; set; }
         public string Sender { get; set; }
         public string Name { get; set; }
