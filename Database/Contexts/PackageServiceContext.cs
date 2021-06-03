@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PakketService.Database.Datamodels;
 
 namespace PakketService.Database.Contexts
@@ -15,5 +11,7 @@ namespace PakketService.Database.Contexts
         }
 
         public DbSet<Package> Package { get; set; }
+        public DbSet<Ticket> Ticket { get; set; }
+
     }
 }

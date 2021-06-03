@@ -23,13 +23,11 @@ namespace PakketService.Database.Converters
             {
                 Id = package.Id,
                 ReceiverId = package.ReceiverId,
-                TrackAndTraceId = package.TrackAndTraceId,
                 CollectionPointId = package.CollectionPointId,
                 Sender = package.Sender,
                 Name = package.Name,
                 Status = package.Status,
                 RouteFinished = package.RouteFinished,
-                Tickets = package.Tickets
             };
         }
 

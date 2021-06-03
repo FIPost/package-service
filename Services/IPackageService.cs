@@ -11,6 +11,5 @@ namespace PakketService.Services
         Task<List<PackageResponse>> GetAllAsync();
         Task<PackageResponse> GetByIdAsync(Guid id);
         Task<PackageResponse> UpdateAsync(Guid id, PackageRequest request);
-        Task DeleteByIdAsync(Guid id);
     }
 }
