@@ -31,7 +31,7 @@ namespace PakketService
             Configuration.GetSection("Kestrel"));
 
             var connection = Configuration.GetValue<string>("ConnectionString");
-            services.AddDbContext<PackageServiceContext>(
+            services.AddDbContextPool<PackageServiceContext>(
                 options => options.UseSqlServer(connection));
 
             services.AddControllers();
