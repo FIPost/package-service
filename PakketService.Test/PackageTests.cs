@@ -109,11 +109,7 @@ namespace PakketService.Test
         public async Task GetPackageById_NotFound()
         {
             // Arrange
-<<<<<<< HEAD
-            serviceMock.Setup(x => x.AddAsync(request)).Returns(Task.FromResult(converterMock.Object.ModelToDto(package)));
-=======
             serviceMock.Setup(x => x.GetByIdAsync(packageResponse1.Id)).Throws<NotFoundException>();
->>>>>>> 751cbe85180a10edc172a54ddbafead7c90f4549
             var controller = new PackagesController(serviceMock.Object);
 
             // Act
@@ -163,7 +159,7 @@ namespace PakketService.Test
             var controller = new PackagesController(serviceMock.Object);
 
             // Act
-            var actionResult = controller.Health();
+            var actionResult = controller.Health();g
 
             // Assert
             Assert.IsNotNull(actionResult);
