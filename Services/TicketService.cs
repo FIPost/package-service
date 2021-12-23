@@ -34,7 +34,7 @@ namespace PakketService.Services
                 .OrderByDescending(t => t.FinishedAt).ToList();
             if(a.FirstOrDefault().LocationId == request.LocationId)
             {
-                throw new NotFoundException($"Package with id {request.PackageId} not found. (test for same locId)");
+                throw new NotFoundException($"Package with id {request.PackageId} cannot be deliverd to the same location.");
             }
 
 
