@@ -29,6 +29,15 @@ namespace PakketService.Services
                 throw new NotFoundException($"Package with id {request.PackageId} not found.");
             }
 
+            var a = _context.Ticket
+                .Where(t => t.PackageId == request.PackageId)
+                .OrderByDescending(t => t.FinishedAt).ToList();
+            if(a.FirstOrDefault().LocationId == request.LocationId)
+            {
+                throw new NotFoundException($"Package with id {request.PackageId} cannot be deliverd to the same location.");
+            }
+
+
             Ticket ticket = _converter.DtoToModel(request);
             ticket.FinishedAt = DateTimeOffset.Now.ToUnixTimeSeconds();
             await _context.AddAsync(ticket);
